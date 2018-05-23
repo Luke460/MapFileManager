@@ -25,15 +25,14 @@ public class MapFileManager {
 	}
 
 	public void updateFile() {
+		LP.writeNewFile(fileName, "");
 		int keyCount = 0;
-		LP.writeNewFileln(fileName, "#"+fileName+"#");
-		LP.addToFileln(fileName, "");
 		for(String tempChiave:this.keyList) {
 			keyCount = writeValues(keyCount, tempChiave);
 		}
 		for(String tempChiave:this.map.keySet()) {
 			if(!keyList.contains(tempChiave)) {
-				writeValues(keyCount, tempChiave);
+				writeValues(tempChiave);
 			}
 		}
 		LP.addToFileln(fileName, "$" + this.finalComments);
@@ -43,7 +42,7 @@ public class MapFileManager {
 		String line;
 		if(commentsMap.containsKey(keyCount)) {
 			String newComment = "#"+commentsMap.get(keyCount)+"#";
-			LP.addToFileln(fileName, newComment);
+			LP.addToFileln(fileName, newComment+"\n\r");
 		}
 		line = "<";
 		line+=tempChiave;
@@ -53,9 +52,21 @@ public class MapFileManager {
 		line = "  <";
 		line+=this.map.get(tempChiave);
 		line+= ">";
-		LP.addToFileln(fileName, line);
-		LP.addToFileln(fileName, "");
+		LP.addToFileln(fileName, line+"\n\r");
 		return keyCount;
+	}
+
+	private void writeValues(String tempChiave) {
+		String line;
+		line = "<";
+		line+=tempChiave;
+		line+= ">";
+		LP.addToFileln(fileName, line);
+		line = "  <";
+		line+=this.map.get(tempChiave);
+		line+= ">";
+		LP.addToFileln(fileName, line+"\n\r");
+
 	}
 
 	public void readFile() throws Exception{
@@ -87,7 +98,11 @@ public class MapFileManager {
 					if(c==COMMENT_CHAR) {
 						if(isComment) {
 							isComment=false;
+							if(commentsMap.containsKey(keyCount)) {
+								comment = commentsMap.get(keyCount).concat("#\n\r#"+comment);
+							}
 							commentsMap.put(keyCount, comment);
+
 						} else {
 							isComment=true;
 							comment = "";
