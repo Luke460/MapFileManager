@@ -5,7 +5,7 @@
 Crea un oggetto MapFileManager, che opera sul file specificato. La lettura e la scrittura vanno richieste esplicitamente.
 
 ### readFile():
-Aggiorna la mappa (Map<String,String>) con i valori contenuti nel file.
+Controlla il contenuto del file, e se *ben formato*, aggiorna la mappa (Map<String,String>) con i valori contenuti nel file.
 
 ### updateFile()
 Aggiorna il file sulla base dei valori contenuti nella mappa.
