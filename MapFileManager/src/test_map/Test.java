@@ -9,6 +9,7 @@ public class Test {
 		MapFileManager manager = new MapFileManager("testFile.txm");
 		manager.readFile();
 		System.out.println(manager.getMap().toString());
+		manager.getMap().put("test key", "test_value");
 		manager.getMap().toString();
 		manager.updateFile();
 	}

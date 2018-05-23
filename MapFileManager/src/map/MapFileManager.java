@@ -20,39 +20,49 @@ public class MapFileManager {
 	public MapFileManager(String nomeFile) {
 		this.fileName = nomeFile;
 		this.finalComments = new String();
+		map = new HashMap<String,String>();
+		this.keyList = new LinkedList<>();
 	}
 
 	public void updateFile() {
-		String line;
 		int keyCount = 0;
 		LP.writeNewFileln(fileName, "#"+fileName+"#");
 		LP.addToFileln(fileName, "");
 		for(String tempChiave:this.keyList) {
-			if(commentsMap.containsKey(keyCount)) {
-				String newComment = "#"+commentsMap.get(keyCount)+"#";
-				LP.addToFileln(fileName, newComment);
+			keyCount = writeValues(keyCount, tempChiave);
+		}
+		for(String tempChiave:this.map.keySet()) {
+			if(!keyList.contains(tempChiave)) {
+				writeValues(keyCount, tempChiave);
 			}
-			line = "<";
-			line+=tempChiave;
-			keyCount++;
-			line+= ">";
-			LP.addToFileln(fileName, line);
-			line = "  <";
-			line+=this.map.get(tempChiave);
-			line+= ">";
-			LP.addToFileln(fileName, line);
-			LP.addToFileln(fileName, "");
 		}
 		LP.addToFileln(fileName, "$" + this.finalComments);
 	}
 
+	private int writeValues(int keyCount, String tempChiave) {
+		String line;
+		if(commentsMap.containsKey(keyCount)) {
+			String newComment = "#"+commentsMap.get(keyCount)+"#";
+			LP.addToFileln(fileName, newComment);
+		}
+		line = "<";
+		line+=tempChiave;
+		keyCount++;
+		line+= ">";
+		LP.addToFileln(fileName, line);
+		line = "  <";
+		line+=this.map.get(tempChiave);
+		line+= ">";
+		LP.addToFileln(fileName, line);
+		LP.addToFileln(fileName, "");
+		return keyCount;
+	}
+
 	public void readFile(){
-		map = new HashMap<String,String>();
 		String text = LP.readFile(fileName);
 		String line = new String();
 		String chiave = new String();
 		String valore = new String();
-		this.keyList = new LinkedList();
 		this.commentsMap = new HashMap<>();
 		Boolean isChiave = false;
 		Boolean isComment = false;
@@ -123,12 +133,12 @@ public class MapFileManager {
 		this.map.put(chiave, valore);
 	}
 
-	public HashMap<String, String> getMap() {
-		return map;
-	}
-
 	public void setMap(HashMap<String, String> map) {
 		this.map = map;
+	}
+	
+	public HashMap<String, String> getMap() {
+		return map;
 	}
 
 }
