@@ -1,6 +1,6 @@
 #testFile.txm#
 
-#comment one#
+#first comment#
 <key01>
   <value01>
 
@@ -11,6 +11,7 @@
 <key03>
   <value03>
 
+#<I'm a comment too!>#
 <key X>
   <XXX>
 
