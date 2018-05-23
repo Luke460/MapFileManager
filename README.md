@@ -21,17 +21,26 @@ Restituisce la mappa permettendo la sua modifica.
 #testFile.txm#
 
 #first comment#
+
 <key01>
   <value01>
 
 #comment two#
+
 <key02>
   <value02>
+
+#c1#
+
+#c2#
+
+#c3#
 
 <key03>
   <value03>
 
 #<I'm a comment too!>#
+
 <key X>
   <XXX>
 
@@ -39,11 +48,12 @@ Restituisce la mappa permettendo la sua modifica.
   bla bla
   bla bla
   bla bla bla#
-<final key>
-  <final value>
 
 <test key>
   <test_value>
+
+<final key>
+  <final value>
 
 $
 
@@ -53,4 +63,5 @@ another comment (2)
 another comment (3)
 
 another comment (...)
+
 ```
