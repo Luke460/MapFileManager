@@ -6,20 +6,26 @@
 
 #comment two#
 <key02>
-  <value02>
+  <key03>
 
-<key03>
-  <value03>
+<value03>
+  <key X>
 
-<key X>
-  <XXX>
+<XXX>
+  <final key>
 
 # some comments:
   bla bla
   bla bla
   bla bla bla#
-<final key>
-  <final value>
+<final value>
+  <test key>
+
+<test_value>
+  <null>
+
+<test key>
+  <test_value>
 
 $
 

@@ -58,7 +58,7 @@ public class MapFileManager {
 		return keyCount;
 	}
 
-	public void readFile(){
+	public void readFile() throws Exception{
 		String text = LP.readFile(fileName);
 		String line = new String();
 		String chiave = new String();
@@ -68,7 +68,11 @@ public class MapFileManager {
 		Boolean isComment = false;
 		ArrayList<Character> listaCaratteri = new ArrayList<>();
 		listaCaratteri.addAll(Utility.stringToArray(text));
-
+		
+		if(!wellFormed(listaCaratteri)) {
+			throw new Exception("Format Exception: corrupted file!");
+		}
+		
 		boolean rigaValida=false;
 		boolean end = false;
 		int keyCount = 0;
@@ -123,6 +127,55 @@ public class MapFileManager {
 				}
 			}
 		}
+	}
+
+	private boolean wellFormed(ArrayList<Character> listaCaratteri) {
+		boolean lineOpen=false;
+		boolean lineClose=false;
+		boolean openKeyValue=false;
+		boolean isValue = false;
+		boolean isKey = false;
+		boolean nextIsValue = false;
+		for(char c:listaCaratteri) {
+			
+			//System.out.println(c);
+			
+			if(c==END_FILE_CHAR)return true;
+			
+			if(lineOpen && c==START_LINE_CHAR) return false;
+			if(!lineOpen && c==END_LINE_CHAR) return false;
+			if(openKeyValue && c==END_FILE_CHAR) return false;
+			
+			if(c==START_LINE_CHAR) {
+				lineOpen=true;
+			}
+			
+			if(c==END_LINE_CHAR) {
+				lineOpen=false;
+			}
+			
+			if(c==START_LINE_CHAR && isKey==false && isValue==false) {
+				isKey=true;
+				openKeyValue=true;
+			}
+			
+			if(c==END_LINE_CHAR && isKey==true && isValue==false) {
+				nextIsValue=true;
+				isKey=false;
+			}
+			
+			if(c==START_LINE_CHAR && nextIsValue==true) {
+				isValue=true;
+				nextIsValue=false;
+			}
+			
+			if(c==END_LINE_CHAR && isValue==true) {
+				isValue=false;
+				openKeyValue=false;
+			}
+
+		}
+		return false;
 	}
 
 	public String get(String chiave) {
