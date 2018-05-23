@@ -68,11 +68,11 @@ public class MapFileManager {
 		Boolean isComment = false;
 		ArrayList<Character> listaCaratteri = new ArrayList<>();
 		listaCaratteri.addAll(Utility.stringToArray(text));
-		
+
 		if(!wellFormed(listaCaratteri)) {
 			throw new Exception("Format Exception: corrupted file!");
 		}
-		
+
 		boolean rigaValida=false;
 		boolean end = false;
 		int keyCount = 0;
@@ -92,34 +92,35 @@ public class MapFileManager {
 							isComment=true;
 							comment = "";
 						}
-						
+
 					} else if(isComment) {
 						comment+=c;
-					}
-					
-					if(c==START_LINE_CHAR && !isComment){
-						line = new String();
-						rigaValida=true;
-						if(isChiave==true) {
-							isChiave = false;
-						} else {
-							isChiave = true;
+					} else if(!isComment){
+
+						if(c==START_LINE_CHAR){
+							line = new String();
+							rigaValida=true;
+							if(isChiave==true) {
+								isChiave = false;
+							} else {
+								isChiave = true;
+							}
 						}
-					}
-					if(c==END_LINE_CHAR && !isComment){
-						rigaValida=false;
-						if(isChiave) {
-							chiave = new String(line);
-							keyList.add(chiave);
-							keyCount++;
-						} else {
-							valore = new String(line);
-							map.put(chiave, valore);
+						if(c==END_LINE_CHAR){
+							rigaValida=false;
+							if(isChiave) {
+								chiave = new String(line);
+								keyList.add(chiave);
+								keyCount++;
+							} else {
+								valore = new String(line);
+								map.put(chiave, valore);
+							}
 						}
-					}
-					// fine controllo
-					if(rigaValida && (c!=START_LINE_CHAR && c!=END_LINE_CHAR) && !isComment){
-						line+=c;
+						// fine controllo
+						if(rigaValida && (c!=START_LINE_CHAR && c!=END_LINE_CHAR)){
+							line+=c;
+						}
 					}
 
 				} else if(!isComment){
@@ -137,38 +138,38 @@ public class MapFileManager {
 		boolean isKey = false;
 		boolean nextIsValue = false;
 		for(char c:listaCaratteri) {
-			
+
 			//System.out.println(c);
-			
+
 			if(c==END_FILE_CHAR)return true;
-			
+
 			if(lineOpen && c==START_LINE_CHAR) return false;
 			if(!lineOpen && c==END_LINE_CHAR) return false;
 			if(openKeyValue && c==END_FILE_CHAR) return false;
-			
+
 			if(c==START_LINE_CHAR) {
 				lineOpen=true;
 			}
-			
+
 			if(c==END_LINE_CHAR) {
 				lineOpen=false;
 			}
-			
-			if(c==START_LINE_CHAR && isKey==false && isValue==false) {
+
+			if(c==START_LINE_CHAR && isKey==false && isValue==false && !nextIsValue) {
 				isKey=true;
 				openKeyValue=true;
 			}
-			
+
 			if(c==END_LINE_CHAR && isKey==true && isValue==false) {
 				nextIsValue=true;
 				isKey=false;
 			}
-			
+
 			if(c==START_LINE_CHAR && nextIsValue==true) {
 				isValue=true;
 				nextIsValue=false;
 			}
-			
+
 			if(c==END_LINE_CHAR && isValue==true) {
 				isValue=false;
 				openKeyValue=false;
@@ -189,7 +190,7 @@ public class MapFileManager {
 	public void setMap(HashMap<String, String> map) {
 		this.map = map;
 	}
-	
+
 	public HashMap<String, String> getMap() {
 		return map;
 	}
