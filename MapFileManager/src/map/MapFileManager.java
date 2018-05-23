@@ -147,7 +147,6 @@ public class MapFileManager {
 
 	private boolean wellFormed(ArrayList<Character> listaCaratteri) {
 		boolean lineOpen=false;
-		boolean lineClose=false;
 		boolean openKeyValue=false;
 		boolean isValue = false;
 		boolean isKey = false;
