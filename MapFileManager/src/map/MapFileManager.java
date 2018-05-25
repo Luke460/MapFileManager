@@ -12,10 +12,12 @@ public class MapFileManager {
 	public static final char START_LINE_CHAR = '<';
 	public static final char END_LINE_CHAR = '>';
 	public static final char COMMENT_CHAR = '#';
+	public static final String END_LINE = "\n\r";
 	private HashMap<String,String> map;
 	private String fileName, finalComments;
 	private LinkedList<String> keyList;
 	private HashMap<Integer,String> commentsMap;
+	private String filePayload;
 
 	public MapFileManager(String nomeFile) {
 		this.fileName = nomeFile;
@@ -25,7 +27,8 @@ public class MapFileManager {
 	}
 
 	public void updateFile() {
-		LP.writeNewFile(fileName, "");
+		//LP.writeNewFile(fileName, "");
+		this.filePayload = "";
 		int keyCount = 0;
 		for(String tempChiave:this.keyList) {
 			keyCount = writeValues(keyCount, tempChiave);
@@ -35,24 +38,29 @@ public class MapFileManager {
 				writeValues(tempChiave);
 			}
 		}
-		LP.addToFileln(fileName, "$" + this.finalComments);
+		//LP.addToFileln(fileName, "$" + this.finalComments);
+		this.filePayload +=  "$" + this.finalComments + END_LINE;
+		LP.writeNewFile(fileName, this.filePayload);
 	}
 
 	private int writeValues(int keyCount, String tempChiave) {
 		String line;
 		if(commentsMap.containsKey(keyCount)) {
 			String newComment = "#"+commentsMap.get(keyCount)+"#";
-			LP.addToFileln(fileName, newComment+"\n\r");
+			//LP.addToFileln(fileName, newComment+"\n\r");
+			this.filePayload+=newComment+END_LINE+END_LINE;
 		}
 		line = "<";
 		line+=tempChiave;
 		keyCount++;
 		line+= ">";
-		LP.addToFileln(fileName, line);
+		//LP.addToFileln(fileName, line);
+		this.filePayload+=line+END_LINE;
 		line = "  <";
 		line+=this.map.get(tempChiave);
 		line+= ">";
-		LP.addToFileln(fileName, line+"\n\r");
+		//LP.addToFileln(fileName, line+"\n\r");
+		this.filePayload+=line+END_LINE+END_LINE;
 		return keyCount;
 	}
 
@@ -61,11 +69,13 @@ public class MapFileManager {
 		line = "<";
 		line+=tempChiave;
 		line+= ">";
-		LP.addToFileln(fileName, line);
+		//LP.addToFileln(fileName, line);
+		this.filePayload+=line+END_LINE;
 		line = "  <";
 		line+=this.map.get(tempChiave);
 		line+= ">";
-		LP.addToFileln(fileName, line+"\n\r");
+		//LP.addToFileln(fileName, line+"\n\r");
+		this.filePayload+=line+END_LINE+END_LINE;
 
 	}
 
@@ -207,6 +217,10 @@ public class MapFileManager {
 
 	public HashMap<String, String> getMap() {
 		return map;
+	}
+	
+	public String getFilePayload() {
+		return filePayload;
 	}
 
 }

@@ -1,38 +1,38 @@
 #testFile.txm#
 #first comment#
 
-<key01>
-  <value01>
+<key01>
+  <value01>
 
-#comment two#
+#comment two#
 
-<key02>
-  <value02>
+<key02>
+  <value02>
 
-#c1#
+#c1#
 #c2#
 #c3#
 
-<key03>
-  <value03>
+<key03>
+  <value03>
 
-#<I'm a comment too!>#
+#<I'm a comment too!>#
 
-<key X>
-  <XXX>
+<key X>
+  <XXX>
 
-# some comments:
+# some comments:
   bla bla
   bla bla
   bla bla bla#
 
-<final key>
-  <final value>
+<final key>
+  <final value>
 
-<test key>
-  <test_value>
+<test key>
+  <test_value>
 
-$
+$
 
 another comment (1)
 another comment (2)
@@ -40,3 +40,6 @@ another comment (2)
 another comment (3)
 
 another comment (...)
+
+
+
