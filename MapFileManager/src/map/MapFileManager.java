@@ -19,6 +19,12 @@ public class MapFileManager {
 	private HashMap<Integer,String> commentsMap;
 	private String filePayload;
 
+	public MapFileManager() {
+		this.finalComments = new String();
+		map = new HashMap<String,String>();
+		this.keyList = new LinkedList<>();
+	}
+	
 	public MapFileManager(String nomeFile) {
 		this.fileName = nomeFile;
 		this.finalComments = new String();
@@ -221,6 +227,14 @@ public class MapFileManager {
 	
 	public String getFilePayload() {
 		return filePayload;
+	}
+	
+	public String getFileName() {
+		return fileName;
+	}
+	
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 
 }
