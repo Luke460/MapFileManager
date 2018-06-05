@@ -3,6 +3,7 @@ package map;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 
 import LukePack.LP;
 
@@ -235,6 +236,10 @@ public class MapFileManager {
 	
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
+	}
+	
+	public List<String> getFileKeyList(){
+		return this.keyList;
 	}
 
 }
