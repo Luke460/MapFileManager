@@ -87,6 +87,9 @@ public class MapFileManager {
 	}
 
 	public void readFile() throws Exception{
+		this.finalComments = new String();
+		map = new HashMap<String,String>();
+		this.keyList = new LinkedList<>();
 		String text = LP.readFile(fileName);
 		String line = new String();
 		String chiave = new String();

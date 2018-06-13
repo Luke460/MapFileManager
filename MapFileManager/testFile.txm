@@ -32,6 +32,9 @@
 <test key>
   <test_value>
 
+<test key 2>
+  <test_value 3>
+
 $
 
 another comment (1)
@@ -40,6 +43,5 @@ another comment (2)
 another comment (3)
 
 another comment (...)
-
 
 
